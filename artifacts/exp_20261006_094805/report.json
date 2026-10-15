@@ -1,0 +1,942 @@
+{
+  "executive_summary": "Tested 5 candidate models for regression; selected linear_regression.",
+  "research_question": "Which configured candidate provides the strongest validation evidence for this dataset and task?",
+  "dataset_overview": {
+    "rows": 10,
+    "columns": [
+      "area_sqft",
+      "bedrooms",
+      "neighborhood",
+      "sale_price"
+    ],
+    "column_count": 4,
+    "feature_count": 3,
+    "feature_columns": [
+      "area_sqft",
+      "bedrooms",
+      "neighborhood"
+    ],
+    "numerical_columns": [
+      "area_sqft",
+      "bedrooms"
+    ],
+    "numeric_columns": [
+      "area_sqft",
+      "bedrooms"
+    ],
+    "categorical_columns": [
+      "neighborhood"
+    ],
+    "boolean_columns": [],
+    "datetime_columns": [],
+    "text_columns": [
+      "neighborhood"
+    ],
+    "id_like_columns": [
+      "area_sqft"
+    ],
+    "constant_columns": [],
+    "near_constant_columns": [],
+    "missing_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "neighborhood": 0,
+      "sale_price": 0
+    },
+    "missing": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "neighborhood": 0,
+      "sale_price": 0
+    },
+    "missing_percentages": {
+      "area_sqft": 0.0,
+      "bedrooms": 0.0,
+      "neighborhood": 0.0,
+      "sale_price": 0.0
+    },
+    "unique_counts": {
+      "area_sqft": 10,
+      "bedrooms": 5,
+      "neighborhood": 4,
+      "sale_price": 10
+    },
+    "cardinality": {
+      "area_sqft": 10,
+      "bedrooms": 5,
+      "neighborhood": 4,
+      "sale_price": 10
+    },
+    "duplicate_rows": 0,
+    "duplicates": {
+      "row_duplicates": 0,
+      "column_duplicates": {
+        "area_sqft": 0,
+        "bedrooms": 5,
+        "neighborhood": 6,
+        "sale_price": 0
+      }
+    },
+    "infinite_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "target": "sale_price",
+    "target_distribution": {
+      "min": 180.0,
+      "max": 700.0,
+      "mean": 422.0,
+      "median": 415.0,
+      "std": 171.45261736118232
+    },
+    "suspicious_target_values": {
+      "negative_count": 0,
+      "zero_count": 0,
+      "iqr_outlier_count": 0
+    },
+    "invalid_numeric_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "non_positive_numeric_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "target_suitability": {
+      "is_numeric": true,
+      "has_missing_values": false,
+      "has_finite_values": true,
+      "suitable_for_regression": true
+    },
+    "target_type": "int64",
+    "warnings": [
+      "Dataset is very small; generalization estimates may be unstable.",
+      "Observation count is low relative to the number of features.",
+      "Cross-validation estimates may have high variance with this dataset size.",
+      "Duplicate values were detected in one or more columns."
+    ],
+    "task": {
+      "task": "regression",
+      "target_type": "numeric",
+      "n_unique": 10,
+      "integer_like": true,
+      "reason": "Numeric targets with more than two distinct values are treated as regressions by default."
+    },
+    "task_detection": {
+      "task": "regression",
+      "target_type": "numeric",
+      "n_unique": 10,
+      "integer_like": true,
+      "reason": "Numeric targets with more than two distinct values are treated as regressions by default."
+    },
+    "source": "in_memory",
+    "filename": null,
+    "validation_strategy": {
+      "strategy": "kfold",
+      "n_splits": 5,
+      "shuffle": true,
+      "random_state": 42,
+      "rationale": "General-purpose K-fold validation was selected for the current dataset/task combination.",
+      "fallback_reason": null
+    },
+    "leakage_audit": [
+      {
+        "column": "area_sqft",
+        "risk": "target_leakage",
+        "severity": "warning",
+        "category": "near_perfect_predictor",
+        "reason": "Feature is nearly a perfect duplicate of the target signal.",
+        "evidence": {
+          "correlation": 0.9996010887978559
+        },
+        "recommended_action": "Inspect whether this column is a target-derived leakage source."
+      },
+      {
+        "column": "area_sqft",
+        "risk": "review_required",
+        "severity": "informational",
+        "category": "id_like_column",
+        "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+        "evidence": {
+          "unique_count": 10
+        },
+        "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+      }
+    ],
+    "leakage_analysis": {
+      "findings": [
+        {
+          "column": "area_sqft",
+          "risk": "target_leakage",
+          "severity": "warning",
+          "category": "near_perfect_predictor",
+          "reason": "Feature is nearly a perfect duplicate of the target signal.",
+          "evidence": {
+            "correlation": 0.9996010887978559
+          },
+          "recommended_action": "Inspect whether this column is a target-derived leakage source."
+        },
+        {
+          "column": "area_sqft",
+          "risk": "review_required",
+          "severity": "informational",
+          "category": "id_like_column",
+          "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+          "evidence": {
+            "unique_count": 10
+          },
+          "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        {
+          "column": "area_sqft",
+          "risk": "target_leakage",
+          "severity": "warning",
+          "category": "near_perfect_predictor",
+          "reason": "Feature is nearly a perfect duplicate of the target signal.",
+          "evidence": {
+            "correlation": 0.9996010887978559
+          },
+          "recommended_action": "Inspect whether this column is a target-derived leakage source."
+        }
+      ],
+      "informational": [
+        {
+          "column": "area_sqft",
+          "risk": "review_required",
+          "severity": "informational",
+          "category": "id_like_column",
+          "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+          "evidence": {
+            "unique_count": 10
+          },
+          "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+        }
+      ],
+      "preprocessing_outside_cv": false,
+      "target_encoding_outside_cv": false
+    },
+    "summary": {
+      "rows": 10,
+      "columns": 4
+    }
+  },
+  "task_detection": {
+    "task": "regression",
+    "target_type": "numeric",
+    "n_unique": 10,
+    "integer_like": true,
+    "reason": "Numeric targets with more than two distinct values are treated as regressions by default."
+  },
+  "data_quality": {
+    "rows": 10,
+    "columns": [
+      "area_sqft",
+      "bedrooms",
+      "neighborhood",
+      "sale_price"
+    ],
+    "column_count": 4,
+    "feature_count": 3,
+    "feature_columns": [
+      "area_sqft",
+      "bedrooms",
+      "neighborhood"
+    ],
+    "numerical_columns": [
+      "area_sqft",
+      "bedrooms"
+    ],
+    "numeric_columns": [
+      "area_sqft",
+      "bedrooms"
+    ],
+    "categorical_columns": [
+      "neighborhood"
+    ],
+    "boolean_columns": [],
+    "datetime_columns": [],
+    "text_columns": [
+      "neighborhood"
+    ],
+    "id_like_columns": [
+      "area_sqft"
+    ],
+    "constant_columns": [],
+    "near_constant_columns": [],
+    "missing_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "neighborhood": 0,
+      "sale_price": 0
+    },
+    "missing": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "neighborhood": 0,
+      "sale_price": 0
+    },
+    "missing_percentages": {
+      "area_sqft": 0.0,
+      "bedrooms": 0.0,
+      "neighborhood": 0.0,
+      "sale_price": 0.0
+    },
+    "unique_counts": {
+      "area_sqft": 10,
+      "bedrooms": 5,
+      "neighborhood": 4,
+      "sale_price": 10
+    },
+    "cardinality": {
+      "area_sqft": 10,
+      "bedrooms": 5,
+      "neighborhood": 4,
+      "sale_price": 10
+    },
+    "duplicate_rows": 0,
+    "duplicates": {
+      "row_duplicates": 0,
+      "column_duplicates": {
+        "area_sqft": 0,
+        "bedrooms": 5,
+        "neighborhood": 6,
+        "sale_price": 0
+      }
+    },
+    "infinite_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "target": {
+      "column": "sale_price",
+      "dtype": "int64",
+      "n_unique": 10,
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "distribution": {
+        "min": 180.0,
+        "max": 700.0,
+        "mean": 422.0,
+        "median": 415.0,
+        "std": 171.45261736118232
+      }
+    },
+    "target_distribution": {
+      "min": 180.0,
+      "max": 700.0,
+      "mean": 422.0,
+      "median": 415.0,
+      "std": 171.45261736118232
+    },
+    "suspicious_target_values": {
+      "negative_count": 0,
+      "zero_count": 0,
+      "iqr_outlier_count": 0
+    },
+    "invalid_numeric_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "non_positive_numeric_values": {
+      "area_sqft": 0,
+      "bedrooms": 0,
+      "sale_price": 0
+    },
+    "target_suitability": {
+      "is_numeric": true,
+      "has_missing_values": false,
+      "has_finite_values": true,
+      "suitable_for_regression": true
+    },
+    "target_type": "int64",
+    "warnings": [
+      "Dataset is very small; generalization estimates may be unstable.",
+      "Observation count is low relative to the number of features.",
+      "Cross-validation estimates may have high variance with this dataset size.",
+      "Duplicate values were detected in one or more columns."
+    ],
+    "task": {
+      "task": "regression",
+      "target_type": "numeric",
+      "n_unique": 10,
+      "integer_like": true,
+      "reason": "Numeric targets with more than two distinct values are treated as regressions by default."
+    },
+    "task_detection": {
+      "task": "regression",
+      "target_type": "numeric",
+      "n_unique": 10,
+      "integer_like": true,
+      "reason": "Numeric targets with more than two distinct values are treated as regressions by default."
+    },
+    "source": "in_memory",
+    "filename": null,
+    "validation_strategy": {
+      "strategy": "kfold",
+      "n_splits": 5,
+      "shuffle": true,
+      "random_state": 42,
+      "rationale": "General-purpose K-fold validation was selected for the current dataset/task combination.",
+      "fallback_reason": null
+    },
+    "leakage_audit": [
+      {
+        "column": "area_sqft",
+        "risk": "target_leakage",
+        "severity": "warning",
+        "category": "near_perfect_predictor",
+        "reason": "Feature is nearly a perfect duplicate of the target signal.",
+        "evidence": {
+          "correlation": 0.9996010887978559
+        },
+        "recommended_action": "Inspect whether this column is a target-derived leakage source."
+      },
+      {
+        "column": "area_sqft",
+        "risk": "review_required",
+        "severity": "informational",
+        "category": "id_like_column",
+        "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+        "evidence": {
+          "unique_count": 10
+        },
+        "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+      }
+    ],
+    "leakage_analysis": {
+      "findings": [
+        {
+          "column": "area_sqft",
+          "risk": "target_leakage",
+          "severity": "warning",
+          "category": "near_perfect_predictor",
+          "reason": "Feature is nearly a perfect duplicate of the target signal.",
+          "evidence": {
+            "correlation": 0.9996010887978559
+          },
+          "recommended_action": "Inspect whether this column is a target-derived leakage source."
+        },
+        {
+          "column": "area_sqft",
+          "risk": "review_required",
+          "severity": "informational",
+          "category": "id_like_column",
+          "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+          "evidence": {
+            "unique_count": 10
+          },
+          "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        {
+          "column": "area_sqft",
+          "risk": "target_leakage",
+          "severity": "warning",
+          "category": "near_perfect_predictor",
+          "reason": "Feature is nearly a perfect duplicate of the target signal.",
+          "evidence": {
+            "correlation": 0.9996010887978559
+          },
+          "recommended_action": "Inspect whether this column is a target-derived leakage source."
+        }
+      ],
+      "informational": [
+        {
+          "column": "area_sqft",
+          "risk": "review_required",
+          "severity": "informational",
+          "category": "id_like_column",
+          "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+          "evidence": {
+            "unique_count": 10
+          },
+          "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+        }
+      ],
+      "preprocessing_outside_cv": false,
+      "target_encoding_outside_cv": false
+    },
+    "summary": {
+      "rows": 10,
+      "columns": 4
+    }
+  },
+  "leakage_audit": {
+    "findings": [
+      {
+        "column": "area_sqft",
+        "risk": "target_leakage",
+        "severity": "warning",
+        "category": "near_perfect_predictor",
+        "reason": "Feature is nearly a perfect duplicate of the target signal.",
+        "evidence": {
+          "correlation": 0.9996010887978559
+        },
+        "recommended_action": "Inspect whether this column is a target-derived leakage source."
+      },
+      {
+        "column": "area_sqft",
+        "risk": "review_required",
+        "severity": "informational",
+        "category": "id_like_column",
+        "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+        "evidence": {
+          "unique_count": 10
+        },
+        "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+      }
+    ],
+    "errors": [],
+    "warnings": [
+      {
+        "column": "area_sqft",
+        "risk": "target_leakage",
+        "severity": "warning",
+        "category": "near_perfect_predictor",
+        "reason": "Feature is nearly a perfect duplicate of the target signal.",
+        "evidence": {
+          "correlation": 0.9996010887978559
+        },
+        "recommended_action": "Inspect whether this column is a target-derived leakage source."
+      }
+    ],
+    "informational": [
+      {
+        "column": "area_sqft",
+        "risk": "review_required",
+        "severity": "informational",
+        "category": "id_like_column",
+        "reason": "High-cardinality identifier-like feature may hurt generalization or encode row identity.",
+        "evidence": {
+          "unique_count": 10
+        },
+        "recommended_action": "Review whether the identifier is available and meaningful at inference time."
+      }
+    ],
+    "preprocessing_outside_cv": false,
+    "target_encoding_outside_cv": false
+  },
+  "validation_strategy": {
+    "strategy": "kfold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42,
+    "rationale": "General-purpose K-fold validation was selected for the current dataset/task combination.",
+    "fallback_reason": null
+  },
+  "feature_engineering": {
+    "enabled": false,
+    "mode": "conservative",
+    "transformations_applied": [],
+    "feature_groups": {
+      "numeric": [],
+      "categorical": [],
+      "datetime": [],
+      "interactions": []
+    },
+    "feature_count_before_transformation": 3,
+    "generated_feature_count": 0,
+    "feature_count_after_transformation": 3,
+    "final_transformed_feature_count": 3,
+    "feature_name_lineage": {
+      "area_sqft": "area_sqft",
+      "bedrooms": "bedrooms",
+      "neighborhood": "neighborhood"
+    },
+    "dropped_features": [],
+    "skipped_transformations": [],
+    "safeguards": {
+      "max_interaction_features": 3,
+      "max_categorical_cardinality": 50
+    }
+  },
+  "baseline_models": {
+    "dummy_regressor": {
+      "mean_cv_mae": 175.0,
+      "std_cv_mae": 87.8771870282612,
+      "mean_cv_rmse": 175.6157731058639,
+      "std_cv_rmse": 86.89936844666782,
+      "mean_cv_mse": 38392.4,
+      "std_cv_mse": 28521.58493211764,
+      "mean_cv_r2": -0.03673469387755102,
+      "std_cv_r2": 0.07346938775510203,
+      "mean_cv_mape": 0.44836210023206924,
+      "std_cv_mape": 0.30540792207136286
+    },
+    "linear_regression": {
+      "mean_cv_mae": 10.44578272328756,
+      "std_cv_mae": 10.044193271059608,
+      "mean_cv_rmse": 10.708013963926058,
+      "std_cv_rmse": 9.914876229238343,
+      "mean_cv_mse": 212.966333692751,
+      "std_cv_mse": 344.8544916280693,
+      "mean_cv_r2": 0.19349702977614774,
+      "std_cv_r2": 0.3869940595522955,
+      "mean_cv_mape": 0.01933190477959492,
+      "std_cv_mape": 0.012195041984040523
+    },
+    "ridge_regression": {
+      "mean_cv_mae": 25.680214685063998,
+      "std_cv_mae": 16.875499637740827,
+      "mean_cv_rmse": 26.38670118062536,
+      "std_cv_rmse": 16.934268223684175,
+      "mean_cv_mse": 983.0274394672954,
+      "std_cv_mse": 926.4215834863081,
+      "mean_cv_r2": 0.060737255354543884,
+      "std_cv_r2": 0.1214745107090878,
+      "mean_cv_mape": 0.06790888877444705,
+      "std_cv_mape": 0.06478545235223629
+    },
+    "random_forest_regressor": {
+      "mean_cv_mae": 88.66,
+      "std_cv_mae": 67.71793263235375,
+      "mean_cv_rmse": 88.7479193373182,
+      "std_cv_rmse": 67.6275299955341,
+      "mean_cv_mse": 12449.675999999998,
+      "std_cv_mse": 15446.997071715396,
+      "mean_cv_r2": 0.1389355102040816,
+      "std_cv_r2": 0.27787102040816314,
+      "mean_cv_mape": 0.19598906671742983,
+      "std_cv_mape": 0.1390551561002161
+    },
+    "gradient_boosting_regressor": {
+      "mean_cv_mae": 73.26751128236158,
+      "std_cv_mae": 46.29700282754094,
+      "mean_cv_rmse": 74.08051491876395,
+      "std_cv_rmse": 45.760027853480345,
+      "mean_cv_mse": 7581.902839780504,
+      "std_cv_mse": 9850.70846250103,
+      "mean_cv_r2": -0.13511611200508694,
+      "std_cv_r2": 0.2702322240101739,
+      "mean_cv_mape": 0.15581730849148304,
+      "std_cv_mape": 0.055548819484387314
+    }
+  },
+  "hyperparameter_optimization": {
+    "enabled": false,
+    "results": {}
+  },
+  "model_comparison": {
+    "dummy_regressor": {
+      "mean_cv_mae": 175.0,
+      "std_cv_mae": 87.8771870282612,
+      "mean_cv_rmse": 175.6157731058639,
+      "std_cv_rmse": 86.89936844666782,
+      "mean_cv_mse": 38392.4,
+      "std_cv_mse": 28521.58493211764,
+      "mean_cv_r2": -0.03673469387755102,
+      "std_cv_r2": 0.07346938775510203,
+      "mean_cv_mape": 0.44836210023206924,
+      "std_cv_mape": 0.30540792207136286
+    },
+    "linear_regression": {
+      "mean_cv_mae": 10.44578272328756,
+      "std_cv_mae": 10.044193271059608,
+      "mean_cv_rmse": 10.708013963926058,
+      "std_cv_rmse": 9.914876229238343,
+      "mean_cv_mse": 212.966333692751,
+      "std_cv_mse": 344.8544916280693,
+      "mean_cv_r2": 0.19349702977614774,
+      "std_cv_r2": 0.3869940595522955,
+      "mean_cv_mape": 0.01933190477959492,
+      "std_cv_mape": 0.012195041984040523
+    },
+    "ridge_regression": {
+      "mean_cv_mae": 25.680214685063998,
+      "std_cv_mae": 16.875499637740827,
+      "mean_cv_rmse": 26.38670118062536,
+      "std_cv_rmse": 16.934268223684175,
+      "mean_cv_mse": 983.0274394672954,
+      "std_cv_mse": 926.4215834863081,
+      "mean_cv_r2": 0.060737255354543884,
+      "std_cv_r2": 0.1214745107090878,
+      "mean_cv_mape": 0.06790888877444705,
+      "std_cv_mape": 0.06478545235223629
+    },
+    "random_forest_regressor": {
+      "mean_cv_mae": 88.66,
+      "std_cv_mae": 67.71793263235375,
+      "mean_cv_rmse": 88.7479193373182,
+      "std_cv_rmse": 67.6275299955341,
+      "mean_cv_mse": 12449.675999999998,
+      "std_cv_mse": 15446.997071715396,
+      "mean_cv_r2": 0.1389355102040816,
+      "std_cv_r2": 0.27787102040816314,
+      "mean_cv_mape": 0.19598906671742983,
+      "std_cv_mape": 0.1390551561002161
+    },
+    "gradient_boosting_regressor": {
+      "mean_cv_mae": 73.26751128236158,
+      "std_cv_mae": 46.29700282754094,
+      "mean_cv_rmse": 74.08051491876395,
+      "std_cv_rmse": 45.760027853480345,
+      "mean_cv_mse": 7581.902839780504,
+      "std_cv_mse": 9850.70846250103,
+      "mean_cv_r2": -0.13511611200508694,
+      "std_cv_r2": 0.2702322240101739,
+      "mean_cv_mape": 0.15581730849148304,
+      "std_cv_mape": 0.055548819484387314
+    }
+  },
+  "final_model": "linear_regression",
+  "final_test_results": {
+    "mae": 3.23310601363913,
+    "mse": 15.201753114899665,
+    "rmse": 3.89894256368309,
+    "r2": 0.9996552890450137,
+    "mape": 0.006623650876401771
+  },
+  "error_analysis": {
+    "task": "regression",
+    "rows": [
+      {
+        "index": 8,
+        "actual": 640.0,
+        "predicted": 634.5877247365158,
+        "residual": 5.412275263484162,
+        "absolute_error": 5.412275263484162,
+        "squared_error": 29.292723527722554
+      },
+      {
+        "index": 1,
+        "actual": 220.0,
+        "predicted": 221.0539367637941,
+        "residual": -1.0539367637940984,
+        "absolute_error": 1.0539367637940984,
+        "squared_error": 1.110782702076777
+      }
+    ],
+    "summary": {
+      "mean_residual": 2.1791692498450317,
+      "mean_absolute_error": 3.23310601363913,
+      "mean_squared_error": 15.201753114899665,
+      "max_absolute_error": 5.412275263484162
+    }
+  },
+  "feature_importance": {
+    "available": true,
+    "type": "absolute_coefficients",
+    "features": [
+      {
+        "feature": "numeric__area_sqft",
+        "source_feature": "numeric__area_sqft",
+        "importance": 147.97675230879292
+      },
+      {
+        "feature": "numeric__bedrooms",
+        "source_feature": "numeric__bedrooms",
+        "importance": 11.47851668963499
+      },
+      {
+        "feature": "categorical__neighborhood_West",
+        "source_feature": "categorical__neighborhood_West",
+        "importance": 6.106633601984111
+      },
+      {
+        "feature": "categorical__neighborhood_South",
+        "source_feature": "categorical__neighborhood_South",
+        "importance": 5.582765034097978
+      },
+      {
+        "feature": "categorical__neighborhood_North",
+        "source_feature": "categorical__neighborhood_North",
+        "importance": 0.6943583384994325
+      }
+    ]
+  },
+  "robustness_analysis": {
+    "enabled": false,
+    "status": "single-run result"
+  },
+  "statistical_summary": {
+    "mae": {
+      "count": 1,
+      "mean": 3.23310601363913,
+      "median": 3.23310601363913,
+      "std": 0.0,
+      "variance": 0.0,
+      "min": 3.23310601363913,
+      "max": 3.23310601363913,
+      "range": 0.0,
+      "coefficient_of_variation": 0.0,
+      "confidence_interval": null,
+      "warning": "Only one observation is available; uncertainty cannot be estimated."
+    },
+    "mape": {
+      "count": 1,
+      "mean": 0.006623650876401771,
+      "median": 0.006623650876401771,
+      "std": 0.0,
+      "variance": 0.0,
+      "min": 0.006623650876401771,
+      "max": 0.006623650876401771,
+      "range": 0.0,
+      "coefficient_of_variation": 0.0,
+      "confidence_interval": null,
+      "warning": "Only one observation is available; uncertainty cannot be estimated."
+    },
+    "mse": {
+      "count": 1,
+      "mean": 15.201753114899665,
+      "median": 15.201753114899665,
+      "std": 0.0,
+      "variance": 0.0,
+      "min": 15.201753114899665,
+      "max": 15.201753114899665,
+      "range": 0.0,
+      "coefficient_of_variation": 0.0,
+      "confidence_interval": null,
+      "warning": "Only one observation is available; uncertainty cannot be estimated."
+    },
+    "r2": {
+      "count": 1,
+      "mean": 0.9996552890450137,
+      "median": 0.9996552890450137,
+      "std": 0.0,
+      "variance": 0.0,
+      "min": 0.9996552890450137,
+      "max": 0.9996552890450137,
+      "range": 0.0,
+      "coefficient_of_variation": 0.0,
+      "confidence_interval": null,
+      "warning": "Only one observation is available; uncertainty cannot be estimated."
+    },
+    "rmse": {
+      "count": 1,
+      "mean": 3.89894256368309,
+      "median": 3.89894256368309,
+      "std": 0.0,
+      "variance": 0.0,
+      "min": 3.89894256368309,
+      "max": 3.89894256368309,
+      "range": 0.0,
+      "coefficient_of_variation": 0.0,
+      "confidence_interval": null,
+      "warning": "Only one observation is available; uncertainty cannot be estimated."
+    }
+  },
+  "experiment_lineage": {
+    "dataset": {
+      "source": "in_memory",
+      "target": "sale_price",
+      "fingerprint": "d50ef3d231778bd6fad59e1576dcb7d67bb76eda73da6bc102c414f6e8a68d98"
+    },
+    "stages": [
+      "dataset",
+      "profiling",
+      "task_detection",
+      "leakage_audit",
+      "validation_strategy",
+      "feature_engineering",
+      "baseline_models",
+      "tuning",
+      "selected_model",
+      "error_analysis",
+      "feature_importance",
+      "final_report"
+    ],
+    "transformations": [],
+    "generated_features": {
+      "area_sqft": "area_sqft",
+      "bedrooms": "bedrooms",
+      "neighborhood": "neighborhood"
+    },
+    "selected_model": "linear_regression",
+    "model_parameters": {
+      "copy_X": true,
+      "fit_intercept": true,
+      "n_jobs": null,
+      "positive": false,
+      "tol": 1e-06
+    },
+    "random_seed": 42,
+    "validation": {
+      "strategy": "kfold",
+      "n_splits": 5,
+      "shuffle": true,
+      "random_state": 42,
+      "rationale": "General-purpose K-fold validation was selected for the current dataset/task combination.",
+      "fallback_reason": null
+    }
+  },
+  "limitations": [
+    "Dataset is very small; generalization estimates may be unstable.",
+    "Observation count is low relative to the number of features.",
+    "Cross-validation estimates may have high variance with this dataset size.",
+    "Duplicate values were detected in one or more columns."
+  ],
+  "reproducibility": {
+    "python_version": "3.13.2",
+    "numpy_version": "2.5.1",
+    "pandas_version": "3.0.3",
+    "random_seed": 42,
+    "configuration": {
+      "random_state": 42,
+      "test_size": 0.2,
+      "validation_size": 0.2,
+      "cv_folds": 5,
+      "tune": false,
+      "n_iter": 10,
+      "tuning_cv": null,
+      "tuning_scoring": null,
+      "tuning_random_seed": null,
+      "error_analysis": true,
+      "feature_importance": true,
+      "candidate_models": [
+        "dummy_regressor",
+        "linear_regression",
+        "ridge_regression",
+        "random_forest_regressor",
+        "gradient_boosting_regressor"
+      ],
+      "feature_engineering": {
+        "enabled": false,
+        "mode": "conservative",
+        "transformations_applied": [],
+        "feature_groups": {
+          "numeric": [],
+          "categorical": [],
+          "datetime": [],
+          "interactions": []
+        },
+        "feature_count_before_transformation": 3,
+        "generated_feature_count": 0,
+        "feature_count_after_transformation": 3,
+        "final_transformed_feature_count": 3,
+        "feature_name_lineage": {
+          "area_sqft": "area_sqft",
+          "bedrooms": "bedrooms",
+          "neighborhood": "neighborhood"
+        },
+        "dropped_features": [],
+        "skipped_transformations": [],
+        "safeguards": {
+          "max_interaction_features": 3,
+          "max_categorical_cardinality": 50
+        }
+      },
+      "preprocessing": {
+        "numeric": [
+          "median_imputer",
+          "standard_scaler"
+        ],
+        "categorical": [
+          "most_frequent_imputer",
+          "one_hot_encoder_drop_first"
+        ]
+      }
+    },
+    "dataset_fingerprint": "d50ef3d231778bd6fad59e1576dcb7d67bb76eda73da6bc102c414f6e8a68d98"
+  },
+  "evidence_based_conclusion": "The selected model was supported by the reported validation and holdout metrics ({'mae': 3.23310601363913, 'mse': 15.201753114899665, 'rmse': 3.89894256368309, 'r2': 0.9996552890450137, 'mape': 0.006623650876401771}). Results are single-run result; the listed dataset and validation limitations prevent broader generalization claims."
+}
